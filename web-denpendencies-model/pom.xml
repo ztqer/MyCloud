@@ -14,7 +14,7 @@
 	<name>mycloud-services-model</name>
 	<packaging>pom</packaging>
 
-	<!-- web项目模版，依赖了web、thymeleaf和swagger -->
+	<!-- web项目模版，依赖了web、test、nacos-config、nacos-discovery和swagger -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -34,9 +34,14 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+ 		</dependency>
+ 		
+ 		<dependency>
+     		<groupId>com.alibaba.cloud</groupId>
+     		<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+ 		</dependency>
 		
 		<dependency>
     		<groupId>io.springfox</groupId>
