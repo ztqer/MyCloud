@@ -14,7 +14,7 @@
 	<name>mycloud-services-model</name>
 	<packaging>pom</packaging>
 
-	<!-- web项目模版，依赖了web、test、nacos-config、nacos-discovery、swagger和springboot maven插件 -->
+	<!-- web项目模版，依赖了web、test、nacos-config、nacos-discovery、swagger -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,13 +55,4 @@
     		<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>

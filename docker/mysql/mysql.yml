@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    ports: 
+      - "3306:3306"
+    #修改验证机制（兼容旧版）
+    command: --default-authentication-plugin=mysql_native_password
+    volumes: 
+      - "./data:/var/lib/mysql"
+    environment: 
+      MYSQL_ROOT_PASSWORD: zang19980226
+    #自动重启容器
+    restart: always
