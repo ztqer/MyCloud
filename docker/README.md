@@ -81,6 +81,13 @@ sentinel控制台
 	spring.cloud.stream.rocketmq.binder.name-server=宿主机ip:9876
 	··· 其他配置 ···
 ```
+### seata
+seata服务器，即TC(Transaction Coordinator)部分，TM(Transaction Manager)和RM(Resource Manager)集成在业务系统中
+####使用方法
+进入项目中docker/seata文件夹
+```
+	docker-compose -f seata.yml up
+```
 ### mysql
 mysql 用户名:root 密码:zang19980226
 #### 使用方法
