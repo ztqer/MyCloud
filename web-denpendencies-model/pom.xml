@@ -14,7 +14,7 @@
 	<name>mycloud-services-model</name>
 	<packaging>pom</packaging>
 
-	<!-- web项目模版，依赖了web、test、nacos-config、nacos-discovery、swagger -->
+	<!-- web项目模版，依赖了web、test、nacos-config、nacos-discovery、rockermq、sentinel、swagger -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -42,6 +42,16 @@
      		<groupId>com.alibaba.cloud</groupId>
      		<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
  		</dependency>
+ 		
+ 		<dependency>
+    		<groupId>com.alibaba.cloud</groupId>
+   			<artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+		</dependency>
+		
+ 		<dependency>
+    		<groupId>com.alibaba.cloud</groupId>
+    		<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+		</dependency>
 		
 		<dependency>
     		<groupId>io.springfox</groupId>

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  sentinel-dashboard:
+    container_name: sentinel-dashboard
+    build: .
+    ports: 
+      - "9999:8080"

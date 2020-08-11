@@ -11,5 +11,3 @@ services:
       - "./data:/var/lib/mysql"
     environment: 
       MYSQL_ROOT_PASSWORD: zang19980226
-    #自动重启容器
-    restart: always
