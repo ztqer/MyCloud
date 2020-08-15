@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   rocketmq-nameserver:
     hostname: rocketmq-nameserver
@@ -9,14 +9,24 @@ services:
     volumes:
       - ./nameserver/logs:/home/rocketmq/logs
     command: sh mqnamesrv
+  rocketmq-console:
+    hostname: rocketmq-console
+    container_name: rocketmq-console
+    image: apacherocketmq/rocketmq-console:2.0.0
+    ports: 
+      - 11000:8080
+    environment:
+      - "JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-nameserver:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    depends_on:
+      - rocketmq-nameserver
   rocketmq-broker-m1:
     hostname: rocketmq-broker-m1
     container_name: rocketmq-broker-m1
     image: apacherocketmq/rocketmq
     ports:
-      - 11001:10909
-      - 11002:10911
-      - 11003:10912
+      - 11909:10909
+      - 11911:11911
+      - 11912:10912
     volumes:
       - ./broker-m1/logs:/home/rocketmq/logs
       - ./broker-m1/store:/home/rocketmq/store
@@ -29,9 +39,9 @@ services:
     container_name: rocketmq-broker-s1
     image: apacherocketmq/rocketmq
     ports:
-      - 11004:10909
-      - 11005:10911
-      - 11006:10912
+      - 12909:10909
+      - 12911:12911
+      - 12912:10912
     volumes:
       - ./broker-s1/logs:/home/rocketmq/logs
       - ./broker-s1/store:/home/rocketmq/store
@@ -44,9 +54,9 @@ services:
     container_name: rocketmq-broker-m2
     image: apacherocketmq/rocketmq
     ports:
-      - 11007:10909
-      - 11008:10911
-      - 11009:10912
+      - 13909:10909
+      - 13911:13911
+      - 13912:10912
     volumes:
       - ./broker-m2/logs:/home/rocketmq/logs
       - ./broker-m2/store:/home/rocketmq/store
@@ -59,23 +69,13 @@ services:
     container_name: rocketmq-broker-s2
     image: apacherocketmq/rocketmq
     ports:
-      - 11010:10909
-      - 11011:10911
-      - 11012:10912
+      - 14909:10909
+      - 14911:14911
+      - 14912:10912
     volumes:
       - ./broker-s2/logs:/home/rocketmq/logs
       - ./broker-s2/store:/home/rocketmq/store
       - ./broker-s2/conf/broker.conf:/opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
     command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
-    depends_on:
-      - rocketmq-nameserver
-  rocketmq-console:
-    hostname: rocketmq-console
-    container_name: rocketmq-console
-    image: apacherocketmq/rocketmq-console:2.0.0
-    ports: 
-      - 11000:8080
-    environment:
-      - "JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-nameserver:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
       - rocketmq-nameserver

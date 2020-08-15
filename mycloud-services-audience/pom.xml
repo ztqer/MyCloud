@@ -14,6 +14,7 @@
 	<artifactId>mycloud-services-audience</artifactId>
 	<name>mycloud-services-audience</name>
 
+	<!-- 数据库、redis、websocket -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -35,6 +36,11 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 	</dependencies>
 </project>

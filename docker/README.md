@@ -70,7 +70,15 @@ sentinel控制台
 ### rocketmq
 该实例包含一个nameserver,2主2从的broker集群，以及控制台
 #### 使用方法
-将项目中docker/rocketmq文件夹内容复制到机器/mydata/rocketmq中，并部署：
+将项目中docker/rocketmq文件夹内容复制到机器/mydata/rocketmq中  
+然后修改各个broker的配置，例：docker/rocketmq/broker-m1/conf/broker.conf，修改brokerIP1值 
+```
+	问题:
+	1.docker-compose会为各容器提供网桥连接，故broker上报的ip为内网，生产者消费者从nameserver取得的路由地址不可达
+	2.broker上报端口为自身端口，当docker对端口做了映射后，就算解决了问题1，nameserver或客户端会在宿主机ip的错误端口连接，仍不可达
+	解决办法:手动为broker配置brokerIP1为宿主机ip,listenPort自定义端口并且在docker部署时与宿主机相同端口作映射
+```
+部署：
 ```
 	cd /mydata/rocketmq
 	docker-compose -f rocketmq-cluster.yml up
