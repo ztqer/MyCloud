@@ -9,5 +9,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes: 
       - "./data:/var/lib/mysql"
+      #默认配置my.cnf，官网建议在conf.d中添加xx.cnf额外配置，会自动覆盖
+      - "./conf/conf.d:/etc/mysql/conf.d"
     environment: 
       MYSQL_ROOT_PASSWORD: zang19980226

@@ -10,6 +10,8 @@ docker打包，分布式快速部署
 ```
 	docker network create -d overlay --subnet 192.168.0.0/24 --gateway 192.168.0.1 myoverlay
 ```
+3. 在leader节点上通过docker-compose部署  
+注意：1.版本号;2.在yml文件中根据需求添加deploy和network配置。
 
 ## 重要组件
 volumes统一挂载在 /my-data-path/project-name/some-path 下
@@ -76,7 +78,8 @@ sentinel控制台
 	问题:
 	1.docker-compose会为各容器提供网桥连接，故broker上报的ip为内网，生产者消费者从nameserver取得的路由地址不可达
 	2.broker上报端口为自身端口，当docker对端口做了映射后，就算解决了问题1，nameserver或客户端会在宿主机ip的错误端口连接，仍不可达
-	解决办法:手动为broker配置brokerIP1为宿主机ip,listenPort自定义端口并且在docker部署时与宿主机相同端口作映射
+	解决办法:
+	手动为broker配置brokerIP1为宿主机ip,listenPort自定义端口并且在docker部署时与宿主机相同端口作映射
 ```
 部署：
 ```
@@ -105,11 +108,29 @@ mysql 用户名:root 密码:zang19980226
 	docker-compose -f mysql.yml up
 ``` 
 ### redis
-redis
+redis集群，采用cluster模式，3主3从
 #### 使用方法
-将项目中docker/redis文件夹内容复制到机器/mydata/redis中，并部署：
+将项目中docker/redis文件夹内容复制到机器/mydata/redis中
+```
+	问题:
+	1.docker中运行的redis各节点通信通过announce ip/port/bus-port(各容器需要可达)
+	2.外界客户端访问key，如果被映射到其他节点会根据announce ip/port/bus-port转发请求(外界需要可达)
+	解决办法:
+	1.compose的yml文件中映射port和port+10000(未找不到配置busport的地方，故按默认port+10000)
+	2.redis.conf中配置相应ip和端口为容器在宿主机上的映射
+```
+部署：
 ```
 	cd /mydata/redis
-	docker-compose -f redis.yml up
+	docker-compose -f redis-cluster.yml up
 ``` 
-
+创建集群
+```
+	docker exec -it redis1 bash
+	redis-cli --cluster create 宿主机ip:6301 宿主机ip:6302 宿主机ip:6303 宿主机ip:6304 宿主机ip:6305 
+	宿主机ip:6306 --cluster-replicas 1
+```
+客户端访问
+```
+	redis-cli -c -h 宿主机ip -p 任意节点端口
+```
