@@ -6,6 +6,8 @@ services:
     image: apacherocketmq/rocketmq
     ports:
       - 9876:9876
+    env_file:
+      - ./env/ip.env
     volumes:
       - ./nameserver/logs:/home/rocketmq/logs
     command: sh mqnamesrv
@@ -15,6 +17,8 @@ services:
     image: apacherocketmq/rocketmq-console:2.0.0
     ports: 
       - 11000:8080
+    env_file:
+      - ./env/ip.env
     environment:
       - "JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-nameserver:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
@@ -27,11 +31,13 @@ services:
       - 11909:10909
       - 11911:11911
       - 11912:10912
+    env_file:
+      - ./env/ip.env
     volumes:
       - ./broker-m1/logs:/home/rocketmq/logs
       - ./broker-m1/store:/home/rocketmq/store
-      - ./broker-m1/conf/broker.conf:/opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
-    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
+      - ./broker-m1/conf/broker.conf:/opt/rocketmq/conf/broker.conf
+    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq/conf/broker.conf
     depends_on:
       - rocketmq-nameserver
   rocketmq-broker-s1:
@@ -42,11 +48,13 @@ services:
       - 12909:10909
       - 12911:12911
       - 12912:10912
+    env_file:
+      - ./env/ip.env
     volumes:
       - ./broker-s1/logs:/home/rocketmq/logs
       - ./broker-s1/store:/home/rocketmq/store
-      - ./broker-s1/conf/broker.conf:/opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
-    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
+      - ./broker-s1/conf/broker.conf:/opt/rocketmq/conf/broker.conf
+    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq/conf/broker.conf
     depends_on:
       - rocketmq-nameserver
   rocketmq-broker-m2:
@@ -57,11 +65,13 @@ services:
       - 13909:10909
       - 13911:13911
       - 13912:10912
+    env_file:
+      - ./env/ip.env
     volumes:
       - ./broker-m2/logs:/home/rocketmq/logs
       - ./broker-m2/store:/home/rocketmq/store
-      - ./broker-m2/conf/broker.conf:/opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
-    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
+      - ./broker-m2/conf/broker.conf:/opt/rocketmq/conf/broker.conf
+    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq/conf/broker.conf
     depends_on:
       - rocketmq-nameserver
   rocketmq-broker-s2:
@@ -72,10 +82,12 @@ services:
       - 14909:10909
       - 14911:14911
       - 14912:10912
+    env_file:
+      - ./env/ip.env
     volumes:
       - ./broker-s2/logs:/home/rocketmq/logs
       - ./broker-s2/store:/home/rocketmq/store
-      - ./broker-s2/conf/broker.conf:/opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
-    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq-ROCKETMQ_VERSION/conf/broker.conf
+      - ./broker-s2/conf/broker.conf:/opt/rocketmq/conf/broker.conf
+    command: sh mqbroker -n rocketmq-nameserver:9876 -c /opt/rocketmq/conf/broker.conf
     depends_on:
       - rocketmq-nameserver

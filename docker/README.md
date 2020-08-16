@@ -35,7 +35,7 @@ srs流媒体服务器
 首先从git拉取源文件
 ```
 	cd /mydata
-	git clone https://gitee.com/winlinvip/srs.oschina.git srs &&
+	git clone https://gitee.com/winlinvip/srs.oschina.git srs && 
 	cd srs/trunk && git remote set-url origin https://github.com/ossrs/srs.git && git pull
 ```
 默认为3.0版本，如rtc等功能需切换4.0
@@ -79,11 +79,13 @@ sentinel控制台
 	1.docker-compose会为各容器提供网桥连接，故broker上报的ip为内网，生产者消费者从nameserver取得的路由地址不可达
 	2.broker上报端口为自身端口，当docker对端口做了映射后，就算解决了问题1，nameserver或客户端会在宿主机ip的错误端口连接，仍不可达
 	解决办法:
-	手动为broker配置brokerIP1为宿主机ip,listenPort自定义端口并且在docker部署时与宿主机相同端口作映射
+	1.为broker配置listenPort自定义端口并且在docker部署时与宿主机相同端口作映射
+	2.利用ip.env文件设置环境变量，并通过shell脚本自动修改配置文件配置brokerIP1为宿主机ip
 ```
 部署：
 ```
 	cd /mydata/rocketmq
+	chmod +x ./init.sh && ./init.sh
 	docker-compose -f rocketmq-cluster.yml up
 ```
 1. 通过网站 宿主机ip:11000/ 访问控制台
@@ -118,17 +120,18 @@ redis集群，采用cluster模式，3主3从
 	解决办法:
 	1.compose的yml文件中映射port和port+10000(未找不到配置busport的地方，故按默认port+10000)
 	2.redis.conf中配置相应ip和端口为容器在宿主机上的映射
+	3.利用ip.env文件设置环境变量，并通过shell脚本自动修改配置文件
 ```
 部署：
 ```
 	cd /mydata/redis
+	chmod +x ./init.sh && ./init.sh
 	docker-compose -f redis-cluster.yml up
 ``` 
 创建集群
 ```
 	docker exec -it redis1 bash
-	redis-cli --cluster create 宿主机ip:6301 宿主机ip:6302 宿主机ip:6303 宿主机ip:6304 宿主机ip:6305 
-	宿主机ip:6306 --cluster-replicas 1
+	redis-cli --cluster create $REAL_IP:6301 $REAL_IP:6302 $REAL_IP:6303 $REAL_IP:6304 $REAL_IP:6305 $REAL_IP:6306 --cluster-replicas 1
 ```
 客户端访问
 ```

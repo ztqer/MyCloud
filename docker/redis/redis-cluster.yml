@@ -7,6 +7,8 @@ services:
     ports: 
       - "6301:6379"
       - "16301:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node1/data:/data"
       - "./node1/conf/redis.conf:/usr/local/etc/redis/redis.conf"
@@ -18,6 +20,8 @@ services:
     ports: 
       - "6302:6379"
       - "16302:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node2/data:/data"
       - "./node2/conf/redis.conf:/usr/local/etc/redis/redis.conf"
@@ -29,6 +33,8 @@ services:
     ports: 
       - "6303:6379"
       - "16303:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node3/data:/data"
       - "./node3/conf/redis.conf:/usr/local/etc/redis/redis.conf"
@@ -40,6 +46,8 @@ services:
     ports: 
       - "6304:6379"
       - "16304:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node4/data:/data"
       - "./node4/conf/redis.conf:/usr/local/etc/redis/redis.conf"
@@ -51,6 +59,8 @@ services:
     ports: 
       - "6305:6379"
       - "16305:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node5/data:/data"
       - "./node5/conf/redis.conf:/usr/local/etc/redis/redis.conf"
@@ -62,6 +72,8 @@ services:
     ports: 
       - "6306:6379"
       - "16306:16379"
+    env_file:
+      - ./env/ip.env
     volumes: 
       - "./node6/data:/data"
       - "./node6/conf/redis.conf:/usr/local/etc/redis/redis.conf"
