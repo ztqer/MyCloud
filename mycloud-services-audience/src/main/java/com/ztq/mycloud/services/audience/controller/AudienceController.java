@@ -1,14 +1,9 @@
 package com.ztq.mycloud.services.audience.controller;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ztq.mycloud.services.audience.websocket.MyBindings;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -17,11 +12,9 @@ import io.swagger.annotations.ApiOperation;
 public class AudienceController {
 	@ApiOperation("获取websocket的url")
 	@GetMapping("/getSocketUrl")
-	public String getSocketUrl() {
-		try {
-			return "ws://"+Inet4Address.getLocalHost().getHostAddress().toString()+":"+"10001/websocket";
-		} catch (UnknownHostException e) {
-			return "无法获取地址";
-		}
+	public String getSocketUrl(HttpServletRequest request,HttpServletResponse response) {
+		//request.getHeader("HOST") ip+port
+		//request.getLocalAddr()==request.getLocalName()==request.getServerName() ip
+		return "ws://"+request.getLocalAddr()+":"+"10001/websocket";
 	}
 }

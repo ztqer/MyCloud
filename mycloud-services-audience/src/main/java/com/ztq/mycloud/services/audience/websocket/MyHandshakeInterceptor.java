@@ -6,8 +6,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-public class MyHandshakeInterceptor implements HandshakeInterceptor {
-	
+public class MyHandshakeInterceptor implements HandshakeInterceptor {	
 	//不做拦截
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, 
@@ -20,5 +19,4 @@ public class MyHandshakeInterceptor implements HandshakeInterceptor {
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, 
 			WebSocketHandler wsHandler, Exception exception) {
 	}
-
 }

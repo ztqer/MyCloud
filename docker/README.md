@@ -72,8 +72,7 @@ sentinel控制台
 ### rocketmq
 该实例包含一个nameserver,2主2从的broker集群，以及控制台
 #### 使用方法
-将项目中docker/rocketmq文件夹内容复制到机器/mydata/rocketmq中  
-然后修改各个broker的配置，例：docker/rocketmq/broker-m1/conf/broker.conf，修改brokerIP1值 
+将项目中docker/rocketmq文件夹内容复制到机器/mydata/rocketmq中，并在ip.env中设置REAL_IP
 ```
 	问题:
 	1.docker-compose会为各容器提供网桥连接，故broker上报的ip为内网，生产者消费者从nameserver取得的路由地址不可达
@@ -102,17 +101,22 @@ seata服务器，即TC(Transaction Coordinator)部分，TM(Transaction Manager)�
 	docker-compose -f seata.yml up
 ```
 ### mysql
-mysql 用户名:root 密码:zang19980226
+mysql群复制集群，1主2从 用户名:root 密码:zang19980226
 #### 使用方法
 将项目中docker/mysql文件夹内容复制到机器/mydata/mysql中，并部署：
 ```
 	cd /mydata/mysql
 	docker-compose -f mysql.yml up
 ``` 
+利用shell脚本初始化组复制
+```
+	cd /mydata/mysql
+	chmod +x ./init.sh && ./init.sh
+```
 ### redis
 redis集群，采用cluster模式，3主3从
 #### 使用方法
-将项目中docker/redis文件夹内容复制到机器/mydata/redis中
+将项目中docker/redis文件夹内容复制到机器/mydata/redis中,并在ip.env中设置REAL_IP
 ```
 	问题:
 	1.docker中运行的redis各节点通信通过announce ip/port/bus-port(各容器需要可达)

@@ -1,15 +1,40 @@
 version: '3'
 services:
-  mysql:
-    container_name: mysql
+  mysql1:
+    hostname: mysql1
+    container_name: mysql1
     image: mysql
     ports: 
-      - "3306:3306"
+      - "3301:3306"
     #修改验证机制（兼容旧版）
     command: --default-authentication-plugin=mysql_native_password
     volumes: 
-      - "./data:/var/lib/mysql"
-      #默认配置my.cnf，官网建议在conf.d中添加xx.cnf额外配置，会自动覆盖
-      - "./conf/conf.d:/etc/mysql/conf.d"
+      - "./master/data:/var/lib/mysql"
+      #默认配置my.cnf通过!includedir指定conf.d目录，从中读取xx.cnf额外配置
+      - "./master/conf/conf.d:/etc/mysql/conf.d"
+    environment: 
+      MYSQL_ROOT_PASSWORD: zang19980226
+  mysql2:
+    hostname: mysql2
+    container_name: mysql2
+    image: mysql
+    ports: 
+      - "3302:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes: 
+      - "./slave1/data:/var/lib/mysql"
+      - "./slave1/conf/conf.d:/etc/mysql/conf.d"
+    environment: 
+      MYSQL_ROOT_PASSWORD: zang19980226
+  mysql3:
+    hostname: mysql3
+    container_name: mysql3
+    image: mysql
+    ports: 
+      - "3303:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes: 
+      - "./slave2/data:/var/lib/mysql"
+      - "./slave2/conf/conf.d:/etc/mysql/conf.d"
     environment: 
       MYSQL_ROOT_PASSWORD: zang19980226

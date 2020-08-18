@@ -1,0 +1,23 @@
+[mysqld]
+#禁用innodb以外的引擎
+disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
+#全局id
+server_id=3
+#开启gitd
+gtid_mode=ON
+enforce_gtid_consistency=ON
+#开启基于行的二进制日志
+binlog_checksum=NONE
+log_bin=binlog
+log_slave_updates=ON
+binlog_format=ROW
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+transaction_write_set_extraction=XXHASH64
+#组复制配置
+plugin_load_add='group_replication.so'
+loose-group_replication_group_name="dd13f25e-0702-4312-b59e-be803f0282e5"
+loose-group_replication_start_on_boot=off
+loose-group_replication_local_address= "mysql3:33061"
+loose-group_replication_group_seeds= "mysql1:33061,mysql2:33061,mysql3:33061"
+loose-group_replication_bootstrap_group=off

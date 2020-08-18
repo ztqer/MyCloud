@@ -1,5 +1,7 @@
 package com.ztq.mycloud.services.audience.service;
 
-public class StreamService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class StreamService {
 }
