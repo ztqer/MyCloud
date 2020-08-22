@@ -13,6 +13,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
+import com.ztq.mycloud.services.audience.rocketmq.MyBindings;
 
 @EnableBinding(MyBindings.class)
 public class MyWebSocketHandler extends AbstractWebSocketHandler {
@@ -33,7 +34,7 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         if (message instanceof TextMessage) {
         	//生产到rocketmq
-        	myBindings.myOutput().send(MessageBuilder.withPayload(message.getPayload()).build());
+        	myBindings.commentOutput().send(MessageBuilder.withPayload(message.getPayload()).build());
         } else if (message instanceof BinaryMessage) {
         	
         } else if (message instanceof PongMessage) {
@@ -72,8 +73,8 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
         }
     }
     
-    //从rocketmq消费
-    @StreamListener("myInput")
+    //从rocketmq消费弹幕信息
+    @StreamListener("commentInput")
     public void consume(String rocketMessage) {
     	broadcastMessage(rocketMessage);
     }

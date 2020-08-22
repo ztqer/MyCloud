@@ -1,4 +1,4 @@
-package com.ztq.mycloud.services.audience.websocket;
+package com.ztq.mycloud.services.audience.rocketmq;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
@@ -7,9 +7,12 @@ import org.springframework.messaging.SubscribableChannel;
 
 //自定义输入输出通道
 public interface MyBindings {
-    @Input("myInput")
-    SubscribableChannel myInput();
+    @Input("commentInput")
+    SubscribableChannel commentInput();
     	
-	@Output("myOutput")
-	MessageChannel myOutput();
+	@Output("commentOutput")
+	MessageChannel commentOutput();
+	
+	@Output("orderOutput")
+	MessageChannel orderOutput();
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztq.mycloud.services.account.mapper.AudienceLevelMapper">
+	<!-- 指定返回类型，以便空集能返回null -->
+	<select id="selectLevel" resultType="java.lang.Integer">
+		select level from audienceLevel where
+		name=#{name} and roomId=#{roomId}
+	</select>
+	
+	<update id="increaseLevel">
+		update audienceLevel set
+		level=level+#{increase}
+		where name=#{name} and roomId=#{roomId}
+	</update>
+	
+	<insert id="insert">
+		insert into audienceLevel ( name, roomId, level ) values
+		( #{name}, #{roomId}, #{level} )
+	</insert>
+	
+	<!--  -->
+	<update id="createAudienceLevel">
+		create table `audienceLevel`(
+		`id` int unsigned auto_increment,
+		`name` varchar(50) not null,
+		`roomId` int unsigned not null,
+		`level` int unsigned not null,
+		primary key(`id`),
+		unique index `name_roomId_index`(`name`,`roomId`)
+		)engine=innodb default charset=utf8
+	</update>
+</mapper>

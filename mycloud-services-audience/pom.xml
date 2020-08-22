@@ -14,7 +14,7 @@
 	<artifactId>mycloud-services-audience</artifactId>
 	<name>mycloud-services-audience</name>
 
-	<!-- 数据库、redis、websocket、aop -->
+	<!-- 数据库、redis、websocket、aop、seata -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,5 +47,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+		</dependency>
 	</dependencies>
 </project>

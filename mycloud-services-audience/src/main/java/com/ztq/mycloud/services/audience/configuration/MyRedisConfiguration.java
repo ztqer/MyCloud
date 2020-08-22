@@ -55,6 +55,7 @@ public class MyRedisConfiguration {
         cacheNames.add("idle");
         // 对每个缓存空间应用不同的配置
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
+        //高频使用busy空间60s过期，低频使用idle空间10分钟过期
         configMap.put("busy", config.entryTtl(Duration.ofSeconds(60)));
         configMap.put("idle", config);
         RedisCacheManager cacheManager = RedisCacheManager.builder(redisConnectionFactory)

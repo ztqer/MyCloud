@@ -6,8 +6,6 @@ services:
     image: apacherocketmq/rocketmq
     ports:
       - 9876:9876
-    env_file:
-      - ./env/ip.env
     volumes:
       - ./nameserver/logs:/home/rocketmq/logs
     command: sh mqnamesrv
@@ -17,8 +15,6 @@ services:
     image: apacherocketmq/rocketmq-console:2.0.0
     ports: 
       - 11000:8080
-    env_file:
-      - ./env/ip.env
     environment:
       - "JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-nameserver:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
@@ -28,11 +24,12 @@ services:
     container_name: rocketmq-broker-m1
     image: apacherocketmq/rocketmq
     ports:
-      - 11909:10909
+      - 11909:11909
       - 11911:11911
-      - 11912:10912
-    env_file:
-      - ./env/ip.env
+      - 11912:11912
+    #磁盘达到阈值会拒绝生产者发送  
+    #environment:
+      #- "JAVA_OPT=-Drocketmq.broker.diskSpaceWarningLevelRatio=0.98"
     volumes:
       - ./broker-m1/logs:/home/rocketmq/logs
       - ./broker-m1/store:/home/rocketmq/store
@@ -45,11 +42,9 @@ services:
     container_name: rocketmq-broker-s1
     image: apacherocketmq/rocketmq
     ports:
-      - 12909:10909
+      - 12909:12909
       - 12911:12911
-      - 12912:10912
-    env_file:
-      - ./env/ip.env
+      - 12912:12912
     volumes:
       - ./broker-s1/logs:/home/rocketmq/logs
       - ./broker-s1/store:/home/rocketmq/store
@@ -62,11 +57,9 @@ services:
     container_name: rocketmq-broker-m2
     image: apacherocketmq/rocketmq
     ports:
-      - 13909:10909
+      - 13909:13909
       - 13911:13911
-      - 13912:10912
-    env_file:
-      - ./env/ip.env
+      - 13912:13912
     volumes:
       - ./broker-m2/logs:/home/rocketmq/logs
       - ./broker-m2/store:/home/rocketmq/store
@@ -79,11 +72,9 @@ services:
     container_name: rocketmq-broker-s2
     image: apacherocketmq/rocketmq
     ports:
-      - 14909:10909
+      - 14909:14909
       - 14911:14911
-      - 14912:10912
-    env_file:
-      - ./env/ip.env
+      - 14912:14912
     volumes:
       - ./broker-s2/logs:/home/rocketmq/logs
       - ./broker-s2/store:/home/rocketmq/store

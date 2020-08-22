@@ -10,7 +10,6 @@
 	<h3>hello socket</h3>
 	<p>【用户名】：<div><input id="userId" name="userId" type="text" value="10"></div>
 	<p>【评论】：<div><input id="contentText" name="contentText" type="text" value="hello websocket"></div>
-	<p>操作:<button onclick="openSocket(socketUrl)">开启socket</button>
 	<p>【操作】：<button onclick="comment()">发送消息</button>
 	<div id="show" name="show">【显示】：</div>
 </body>
@@ -18,10 +17,15 @@
 	$(document).ready(function(){
 		$.get("/comment/getSocketUrl",function(data){
 			socketUrl=data;
-			console.log(socketUrl);
+			openSocket(socketUrl);
 		});
 	});
     
+	function afterConnect(){
+		var messageObject={"name":document.getElementById("userId").value,"content":"进入了直播间"};
+		sendMessage(messageObject);
+	}
+	
     function handleMessage(messageObject){
     	document.getElementById("show").innerHTML+="<h4>"+messageObject.name+":"+messageObject.content+"</h4>";
     }

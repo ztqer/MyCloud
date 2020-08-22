@@ -3,9 +3,11 @@ package com.ztq.mycloud.services.audience.datasource;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
+@Order(1)
 @Component
 public class MyDataSourceAop {
 	//对@Read和@Write注解切入，切换数据源

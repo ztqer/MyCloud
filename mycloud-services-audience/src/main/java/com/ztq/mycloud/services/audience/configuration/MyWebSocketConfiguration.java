@@ -24,5 +24,5 @@ public class MyWebSocketConfiguration implements WebSocketConfigurer{
     }
 	
 	@Autowired
-	MyWebSocketHandler myWebSocketHandler;
+	private MyWebSocketHandler myWebSocketHandler;
 }

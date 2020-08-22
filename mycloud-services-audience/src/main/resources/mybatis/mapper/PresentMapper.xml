@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztq.mycloud.services.audience.mapper.PresentMapper">
+	<resultMap id="presentInfo" type="com.ztq.mycloud.services.audience.entity.Present">
+	    <result column="name" property="name" />
+    	<result column="price" property="price" />
+    	<result column="specialEffects" property="specialEffects" />
+	</resultMap>
+	
+	<select id="selectPresentList" resultType="java.lang.String">
+		select present from roomPresent where 
+		roomId=#{roomId}
+	</select>
+
+	<select id="selectPresentInfo" resultMap="presentInfo">
+		select name,price,specialEffects from presentInfo where 
+		name in
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+	</select>
+	
+	<select id="selectPrice" resultType="java.lang.Integer">
+		select price from presentInfo where 
+		name=#{name}
+	</select>
+	
+	<insert id="insertRoomPresent">
+		insert into roomPresent ( roomId, present ) values
+		( #{roomId}, #{present} )
+	</insert>
+	
+	<insert id="insertPresentInfo">
+		insert into presentInfo ( name, price, specialEffects ) values
+		( #{name}, #{price}, #{specialEffects} )
+	</insert>
+	
+	<update id="createPresentInfo">
+		create table `presentInfo`(
+		`name` varchar(50) not null,
+		`price` int unsigned not null,
+		`specialEffects` varchar(50) not null,
+		primary key(`name`)
+		)engine=innodb default charset=utf8
+	</update>
+	
+	<!-- roomId作为索引 -->
+	<update id="createRoomPresent">
+		create table `roomPresent`(
+		`id` int unsigned auto_increment,
+		`roomId` int unsigned not null,
+		`present` varchar(50) not null,
+		primary key(`id`),
+		index `roomId_index`(`roomId`)
+		)engine=innodb default charset=utf8
+	</update>
+</mapper>

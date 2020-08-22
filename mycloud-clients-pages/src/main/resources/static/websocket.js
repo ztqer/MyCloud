@@ -6,7 +6,6 @@ function openSocket(socketUrl) {
     if(typeof(WebSocket) == "undefined") {
         console.log("您的浏览器不支持WebSocket");
     }else{
-        var userId = document.getElementById('userId').value;
         console.log("开始连接:"+socketUrl);
         if(socket!=null){
             socket.close();
@@ -16,6 +15,7 @@ function openSocket(socketUrl) {
         //打开事件
         socket.onopen = function() {
             console.log("websocket已打开");
+            afterConnect();
         };
         //获得消息事件并用json转化成对象
         socket.onmessage = function(message) {

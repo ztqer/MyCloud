@@ -113,6 +113,11 @@ mysql群复制集群，1主2从 用户名:root 密码:zang19980226
 	cd /mydata/mysql
 	chmod +x ./init.sh && ./init.sh
 ```
+查看组复制状态与binlog同步进度
+```
+ 	SELECT * FROM performance_schema.replication_group_members;
+ 	SHOW BINLOG EVENTS;
+```
 ### redis
 redis集群，采用cluster模式，3主3从
 #### 使用方法

@@ -1,4 +1,4 @@
-#根据ip.env为node1-node6的配置文件添加cluster-announce-ip
+#根据ip.env为各broker的配置文件添加brokerIP1
 source ./env/ip.env
 for name in m1 m2 s1 s2
 do

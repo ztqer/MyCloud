@@ -4,9 +4,9 @@ import java.util.HashMap;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import com.alibaba.druid.pool.DruidDataSource;
 import com.ztq.mycloud.services.audience.datasource.MyRoutingDataSource;
 
 @Configuration
@@ -15,19 +15,19 @@ public class MyDataSourceConfiguration {
 	@Bean
 	@ConfigurationProperties("spring.datasource.master")
 	public DataSource masterDataSource() {
-		return DataSourceBuilder.create().build();
+		return new DruidDataSource();
 	}
 	
 	@Bean
 	@ConfigurationProperties("spring.datasource.slave1")
 	public DataSource slave1DataSource() {
-		return DataSourceBuilder.create().build();
+		return new DruidDataSource();
 	}
 	
 	@Bean
 	@ConfigurationProperties("spring.datasource.slave2")
 	public DataSource slave2DataSource() {
-		return DataSourceBuilder.create().build();
+		return new DruidDataSource();
 	}
 	
 	//通过determineCurrentLookupKey去map找出对应的datasource

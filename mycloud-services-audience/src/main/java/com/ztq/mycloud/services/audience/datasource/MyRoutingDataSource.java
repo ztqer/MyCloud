@@ -34,6 +34,7 @@ public class MyRoutingDataSource extends AbstractRoutingDataSource{
 	//返回线程私有的context
 	@Override
 	protected Object determineCurrentLookupKey() {
+		System.out.println("当前数据源:"+context.get());
 		return context.get();
 	}
 }
